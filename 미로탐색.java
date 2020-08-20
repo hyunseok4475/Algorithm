@@ -1,8 +1,3 @@
-package Programmers;
-
-import org.omg.PortableInterceptor.INACTIVE;
-import sun.font.CharToGlyphMapper;
-
 import java.util.Scanner;
 import java.util.Stack;
 
