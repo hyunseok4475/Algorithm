@@ -27,4 +27,6 @@ public class BaekJoon_10989 {
             e.printStackTrace();
         }
     }
+
+
 }
