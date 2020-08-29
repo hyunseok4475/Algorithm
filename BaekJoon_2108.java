@@ -17,38 +17,26 @@ public class BaekJoon_2108 {
             boolean secondflag = false;
             int[] nums = new int[8001];
             int max = -4001;
+            int min = 4001;
             int num = Integer.parseInt(br.readLine());
 
             for (int i = 0; i < num; i++) {
                 get = Integer.parseInt(br.readLine());
                 sum += get;
                 nums[get + 4000]++;
+                if (get > max) max = get;
+                if (get < min) min = get;
             }
-
-            //평균
-            avg = sum / num;
-            //음수 반올림
-            if (avg < 0) {
-                if (avg % 1 > 0.5) {
-                    resultAvg = (int) avg;
-                } else {
-                    resultAvg = (int) avg - 1;
-                }
-
-            }
-            //양수 반올림
-            if (avg >= 0) {
-                if (avg % 1 >= 0.5) {
-                    resultAvg = (int) avg + 1;
-                } else {
-                    resultAvg = (int) avg;
-                }
-            }
+            //간격
+            int diff = max - min;
+            //평균반올림
+            avg = Math.round(sum / num);
+            resultAvg = (int) avg;
 
             //중앙값
             int cnt = 0;
             int tmp = 0;
-            for (int i = 0; i < nums.length - 1; i++) {
+            for (int i = 0; i < nums.length; i++) {
                 cnt += nums[i];
                 if (num % 2 == 0) {
                     if (cnt >= num / 2)
@@ -70,9 +58,13 @@ public class BaekJoon_2108 {
                 }
             }
 
-            //최빈값 근데 같으면 2번째
-            for (int i = 0; i < nums.length; i++) {
-                if (nums[i] > max) max = nums[i];
+            if (num != 1) {
+                max = 0;
+                for (int i = 0; i < nums.length; i++) {
+                    if (nums[i] != 0) {
+                        if (nums[i] > max) max = nums[i];
+                    }
+                }
             }
 
             for (int i = 0; i < nums.length; i++) {
@@ -93,19 +85,6 @@ public class BaekJoon_2108 {
                 }
             }
 
-            //간격
-            for (int i = 0; i < nums.length - 1; i++) {
-                if (nums[i] > 0) {
-                    start = i - 4000;
-                    break;
-                }
-            }
-            for (int i = nums.length - 1; i > 0; i--) {
-                if (nums[i] > 0) {
-                    end = i - 4000;
-                    break;
-                }
-            }
 
             bw.write(String.valueOf(resultAvg));
             bw.newLine();
@@ -116,7 +95,8 @@ public class BaekJoon_2108 {
             bw.write(String.valueOf(fre));
             bw.newLine();
 
-            bw.write(String.valueOf(Math.abs(end - start)));
+            bw.write(String.valueOf(diff));
+            bw.newLine();
 
 
             bw.flush();
